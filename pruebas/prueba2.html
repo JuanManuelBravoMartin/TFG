@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PyScript Pandas Demo</title>
+
+     <link rel="icon" type="image/png" href="favicon.png" />
+	 <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+	 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<py-env>
+- matplotlib
+- pandas
+- lxml
+	</py-env>
+	<style>
+		.pd-table {
+		  font-family: Arial, Helvetica, sans-serif;
+		  border-collapse: collapse;
+		  width: 75%;
+		}
+		
+		.pd-table td, .pd-table th {
+		  border: 1px solid #ddd;
+		  padding: 4px;
+		}
+		
+		.pd-table tr:nth-child(even){background-color: #f2f2f2;}
+		
+		.pd-table tr:hover {background-color: #ddd;}
+		
+		.pd-table th {
+		  padding-top: 6px;
+		  padding-bottom: 6px;
+		  text-align: left;
+		  background-color: #04AA6D;
+		  color: white;
+		}
+
+		.pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 1;
+          }
+          20% {
+            opacity: .2;
+          }
+        }
+		</style>
+  </head>
+
+  <body style="margin: 25px 75px 25px 75px;">
+	<div class="container-fluid">
+	<div class="p-5 text-center bg-light">
+		<h1 class="mb-3">Pandas operations Demo using PyScript</h1>
+		<p>Demo developed by <a href="https://www.linkedin.com/in/tirthajyoti-sarkar-2127aa7/">Dr. Tirthajyoti sarkar</a></p>
+		<a class="btn btn-primary" href="https://www.anaconda.com/blog/pyscript-python-in-the-browser" role="button">Check out the announcement from Anaconda about PyScript framework</a>
+	  </div>
+	  <br>
+<div class="alert alert-primary" role="alert">
+	<h3><a href="https://github.com/pyscript/pyscript">PyScript</a> is awesome, it just takes a few seconds to load...</h3>
+	<p>To provide the power of Python on your browser, this technology needs to load <b>a special virtual machine and all necessary Python modules</b></p>
+	<p>So, sit back and relax. We are loading the modules and generating some random variables as a test. 
+		You can start interacting with the page when you see a histogram of those random variates displayed below.</p>
+	<p> We promise that, once loaded, your interactions will be <b>Python-powered and fast! </b>You can also read more about this awesome framework here at Anaconda's engineering blog.</p>
+	<a class="btn btn-primary" href="https://engineering.anaconda.com/2022/04/welcome-pyscript.html" role="button">Anaconda Engineering Blog about PyScript</a>
+  </div>
+	<h2 style="border:5px; border-radius: 10px; padding:10px;background-color:gray; color:cyan">Test: Random integers</h2>
+<div class="container-md" id="test-plot">
+	<div class="pulse" >
+		<p style='font-family: monospace sans-serif;'><big><big><big><big>PyScript loading and initializing...</big></big></big></big></p>
+	  </div>
+<py-script>
+import matplotlib.pyplot as plt
+import numpy as np
+integers = np.random.randint(0,100,100)
+fig1,ax1 = plt.subplots(1,1,dpi=150,figsize=(5,2))
+ax1.hist(integers,bins=20,edgecolor='k',color='blue')
+ax1.set_title("Histogram of random integers",fontsize=11)
+pyscript.write('test-plot',fig1)
+</py-script>
+</div>
+<br>
+<h2 style="border:5px; border-radius: 10px; padding:10px;background-color:gray; color:cyan">Pandas - random dataframe</h2>
+Let's generate a Pandas DataFrame with some random nunbers (drawn from the ubiquitous Gaussian Normal distribution).
+<div class="alert alert-info" role="alert">
+	<img src="info-circle.svg" width="25px">
+The pretty formatting of the table is done, of course, using CSS. Check the <code>style</code> section. The Pandas <code>pd.to_html()</code>
+function has a <code>classes</code> argument that accepts a CSS class or a list of classes. We utilize that formatting this table.</div>
+<div><button id="pd_table" style="margin-top: 10px;margin-bottom: 10px;" type="button" class="btn btn-primary" pys-onClick="show_table">
+	Generate a Pandas DataFrame</div>
+<br>
+<div id="pandas-output"></div>
+<br>
+<h4>Interested in the statistics of this dataset?</h4>
+<div class="alert alert-info" role="alert">
+	<img src="info-circle.svg" width="25px">
+This code is non-trivial as the randomized generation of the DataFrame with the button above makes it imperative that we read the exact content shown above.
+So, we use the <code>document.getElementbyId()</code> function to accomplish this and read back that HTML into Pandas using the <code>pd.read_html()</code> function.
+  </div>
+<div><button id="table_stats" style="margin-top: 10px;margin-bottom: 10px;" type="button" class="btn btn-primary" pys-onClick="show_stats">
+	Show DataFrame stats</div>
+<br>
+<div id="pandas-ops"></div>
+<br>
+<h2 style="border:5px; border-radius: 10px; padding:10px;background-color:gray; color:cyan">Download file and analyze</h2>
+Now, we will download a CSV file from an externally hosted URL (a GitHub repo) and show its contents and statistics.
+<div style="margin-top: 10px;margin-bottom: 10px;">
+	<input type="url" id="file-url" style="width: 50%" 
+	placeholder="https://raw.githubusercontent.com/tirthajyoti/Machine-Learning-with-Python/master/Datasets/Mall_Customers.csv">
+	<div><button id="download-analyze" style="margin-top: 10px;margin-bottom: 10px;" type="button" class="btn btn-primary" 
+		pys-onClick="download_analyze">
+		Download and analyze</div>
+</div>
+<br>
+<h4>First 5 records of the downloaded file</h4>
+<div id="url-file-head"></div>
+<br>
+<h4>Statistics of the downloaded file</h4>
+<div id="url-file-ops"></div>
+<br>
+<py-script>
+import pandas as pd, numpy as np
+from js import document
+from pyodide.http import open_url
+
+def random_table(n_cols=5,n_rows=20,*ags, **kws):
+	cols = ['Col-'+str(i) for i in range(1,n_cols+1)]
+	idx = ['Row-'+str(i) for i in range(1,n_rows+1)]
+	data = np.round(np.random.normal(size=(n_rows,n_cols)),2)
+	df = pd.DataFrame(data,columns=cols,index=idx)
+	return df
+
+def show_table(*ags, **kws):
+	out = Element('pandas-output')
+	random_df = random_table()
+	out.write(random_df.to_html(classes='pd-table'))
+
+def show_stats(*ags, **kws):
+	out = Element('pandas-ops')
+	input_div = document.getElementById("pandas-output")
+	html_data = input_div.children[0].outerHTML
+	df = pd.read_html(html_data,flavor='lxml')[0]
+	stats_df = df.describe()
+	out.write(stats_df.to_html(classes='pd-table'))
+
+def download_analyze(*ags, **kws):
+	url=document.getElementById('file-url').value
+	try:
+		df = pd.read_csv(open_url(url))
+		pyscript.write('url-file-head',df.head(5).to_html(classes='pd-table'))
+		pyscript.write('url-file-ops',df.describe().to_html(classes='pd-table'))
+	except:
+		pyscript.write('url-file-head',"Could not access the file")
+</py-script>
+</div>
+</body>
+  
+</html>
