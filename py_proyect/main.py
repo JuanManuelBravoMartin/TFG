@@ -5,12 +5,30 @@ add a, a, b """
 BASIC_WORK = ["IF","ID","EX","M","WB"]
 BASIC_READ = []
 BASIC_WRITE = []
-
+copia = ["IF","ID","EX","M","WB"]
 WB = True
 ACCESO_DATOS = 2
 ACCESO_ESCRITURA = 5
 ACCESO_LECTURA = 1
 
+
+def lastindex(lista,palabra):
+    aparicion = 0
+    for x in range(len(lista)):
+        if lista[x] == palabra:
+            aparicion = x
+    print(aparicion)
+    return aparicion
+
+def firstindex(lista,palabra):
+    aparicion = 0
+    for x in range(len(lista)):
+        if lista[x] == palabra:
+            aparicion = x
+            print(aparicion)
+            return aparicion
+    
+    return aparicion
 def set_basics():
     if (ACCESO_DATOS !=1):
         for _ in range(ACCESO_DATOS -1):
@@ -57,24 +75,20 @@ def parser (programa):
 
 def check_consistency(matriz):
     for x in range(1,len(matriz)):
-        anterior = matriz[x-1]["Pipeline"]
-        siguiente = matriz[x]["Pipeline"]
-        for j in range(len(anterior)):
-            try:
-                if anterior[j] == "-":
-                    print("AAA")
-                    for i in range(j,0,-1):
-                        if anterior[i] != "-":
-                            print("BBB")
-                            if siguiente[i] == anterior[i]:
-                                anterior.insert(i,"-")
-                        break
-                if anterior[j] == siguiente[j]:
-                    siguiente.insert(j, "-")
-
-            except:
-                break
-
+        anterior = matriz[x-1]["Pipeline"].copy()
+        siguiente = matriz[x]["Pipeline"].copy()
+        for i in copia:
+            print(i)
+            indice_anterior = lastindex(anterior,i)
+            indice_siguiente = firstindex(siguiente,i)
+            dif = indice_anterior - indice_siguiente
+            if dif >= 0:
+                print("PASO QUE VOY ARDIENDO")
+                for i in range(dif+1):
+                    siguiente.insert(indice_siguiente,"-")
+        matriz[x-1]["Pipeline"] = anterior.copy()
+        matriz[x]["Pipeline"] = siguiente.copy()
+    return matriz
 def memory_function(linea):
     spliteado = linea.split(",")
     header = spliteado[0].split(" ")
