@@ -1,5 +1,5 @@
 a = """sw a , a(222)
-sw a , b(222)
+sw a , a
 add a, a, b """
 
 BASIC_WORK = ["IF","ID","EX","M","WB"]
@@ -10,7 +10,7 @@ WB = True
 ACCESO_DATOS = 2 ###### CICLOS DE ACCESO A LA MEMORIA DE DATOS ######
 ACCESO_ESCRITURA = 5 ###### CICLOS DE ACCESO A LA ESCRITURA DE DATOS ######
 ACCESO_LECTURA = 1 ###### CICLOS DE ACCESO A LA LECTURA DE DATOS ######
-
+RWEXCEPTIONS = " "
 
 def lastindex(lista,palabra):
     """Devuelve la ultima aparicion de un objeto en una lista."""
@@ -18,7 +18,7 @@ def lastindex(lista,palabra):
     for x in range(len(lista)):
         if lista[x] == palabra:
             aparicion = x
-    print(aparicion)
+    # print(aparicion)
     return aparicion
 
 def firstindex(lista,palabra):
@@ -27,7 +27,7 @@ def firstindex(lista,palabra):
     for x in range(len(lista)):
         if lista[x] == palabra:
             aparicion = x
-            print(aparicion)
+            # print(aparicion)
             return aparicion
     
     return aparicion
@@ -75,7 +75,7 @@ def parser (programa):
             accion, var1, var2, var3 = arith_function(linea)
             matriz.append({"Accion": accion,"Continente": var1, "Ejecutor": [var2,var3], "Pipeline": variable})
         contador += 1
-    check_problems()
+    check_problems(matriz)
     check_consistency(matriz)
     printear(matriz)
 
@@ -86,7 +86,7 @@ def check_consistency(matriz):
         anterior = matriz[x-1]["Pipeline"].copy()
         siguiente = matriz[x]["Pipeline"].copy()
         for i in copia:
-            print(i)
+            # print(i)
             indice_anterior = lastindex(anterior,i)
             indice_siguiente = firstindex(siguiente,i)
             dif = indice_anterior - indice_siguiente
@@ -96,9 +96,24 @@ def check_consistency(matriz):
         matriz[x-1]["Pipeline"] = anterior.copy()
         matriz[x]["Pipeline"] = siguiente.copy()
     return matriz
-def check_problems():
+def check_problems(matriz):
     """Funcion que comprueba los problemas en la matriz del tipo RaW o WaR"""
-    pass
+    RAWSTRING = "******RAW******\n"
+    WARSTRING = "******WAR******\n"
+    RARSTRING = "******RAR******\n"
+    for x in range(1,len(matriz)):
+
+        if (matriz[x-1]["Continente"] in matriz[x]["Ejecutor"]):
+            RAWSTRING +="I" + str(x-1) + "--->" +"I" + str(x) +"\n"
+        if (matriz[x]["Continente"] in matriz[x-1]["Ejecutor"]):
+            WARSTRING +="I"+ str(x-1) + "--->" + "I" + str(x) +"\n"
+        if (matriz[x]["Continente"] == matriz[x-1]["Continente"]):
+            RARSTRING += "I"+str(x-1) + "--->" + "I" +str(x) +"\n"
+        
+    print(RARSTRING)
+    print(RAWSTRING)
+    print(WARSTRING)
+
 def memory_function(linea):
     """Funcion que, dada una instruccion de acceso a memoria, devuelve los parametros en el orden estimado."""
     spliteado = linea.split(",")
@@ -140,5 +155,7 @@ def printear(matriz):
     print(constant)
     
 if __name__ == "__main__":
+    RWEXCEPTIONS = ""
     set_basics()
     parser(a)
+    print(RWEXCEPTIONS)
