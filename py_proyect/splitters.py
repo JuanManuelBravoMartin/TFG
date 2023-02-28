@@ -1,3 +1,5 @@
+"""Funciones para separar las instrucciones dependiendo de que tipo sean"""
+
 def memory_function(linea):
     """Funcion que, dada una instruccion de acceso a memoria, devuelve los parametros en el orden estimado."""
     spliteado = linea.split(",")

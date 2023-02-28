@@ -25,7 +25,7 @@ def set_basics():
         i = BASIC_WRITE.index("M")
         for _ in range(ACCESO_ESCRITURA -1):
             BASIC_WRITE.insert(i,"M")
-            
+
     if (ACCESO_LECTURA != 1):
 
         i = BASIC_READ.index("M")
@@ -60,7 +60,7 @@ def parser (programa):
                 variable = ["-"] + variable
             accion, var1, var2, var3 = arith_function(linea)
             matriz.append({"Accion": accion,"Continente": var1, "Ejecutor": [var2,var3], "Pipeline": variable})
-        contador += 1
+        contador += ACCESO_DATOS
 
     checktodosproblemas(matriz)
     
