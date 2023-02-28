@@ -48,6 +48,49 @@ def set_basics():
         for _ in range(ACCESO_LECTURA -1):
             BASIC_READ.insert(i,"M")
 
+def checktodosproblemas(matriz):
+    RAWSTRING = "******RAW******\n"
+    WARSTRING = "******WAR******\n"
+    RARSTRING = "******RAR******\n"
+    for x in range(1,len(matriz)):
+        anterior = matriz[x-1]["Pipeline"].copy()
+        siguiente = matriz[x]["Pipeline"].copy()
+
+        for i in copia:
+            # print(i)
+
+
+
+            indice_anterior = lastindex(anterior,i)
+            indice_siguiente = firstindex(siguiente,i)
+            dif = indice_anterior - indice_siguiente
+
+
+            if (i == "EX"):
+
+                for y in range(x):
+                    # print(y)
+                    if (matriz[y]["Continente"] in matriz[x]["Ejecutor"]):
+
+                        if(lastindex(matriz[y]["Pipeline"],"WB") >= firstindex(matriz[x]["Pipeline"],"EX")):
+                            while(lastindex(matriz[y]["Pipeline"],"WB") >= firstindex(siguiente,"EX")):
+                                siguiente.insert(firstindex(matriz[x]["Pipeline"],"EX"),"-")
+                        RAWSTRING +="I" + str(y) + "--->" +"I" + str(x) +"\n"
+                    if (matriz[x]["Continente"] in matriz[y]["Ejecutor"]):
+                        WARSTRING +="I"+ str(y) + "--->" + "I" + str(x) +"\n"
+                    if (matriz[x]["Continente"] == matriz[y]["Continente"]):
+                        RARSTRING += "I"+str(y) + "--->" + "I" +str(x) +"\n"
+
+            if dif >= 0:
+                for i in range(dif+1):
+                    siguiente.insert(indice_siguiente,"-")
+            matriz[x-1]["Pipeline"] = anterior.copy()
+            matriz[x]["Pipeline"] = siguiente.copy()
+
+    print(RARSTRING)
+    print(RAWSTRING)
+    print(WARSTRING)
+
 def parser (programa):
     """Funcion que divide el programa(un string) en diccionarios, asociandolos a una de las filas de la matriz, con su tipo
     de instruccion. Una vez hecho esto, y de forma temporal, ejecuta las fucniones que detectan que las instrucciones se pisan
@@ -75,8 +118,9 @@ def parser (programa):
             accion, var1, var2, var3 = arith_function(linea)
             matriz.append({"Accion": accion,"Continente": var1, "Ejecutor": [var2,var3], "Pipeline": variable})
         contador += 1
-    check_problems(matriz)
-    check_consistency(matriz)
+
+    checktodosproblemas(matriz)
+    
     printear(matriz)
 
 
@@ -102,17 +146,19 @@ def check_problems(matriz):
     WARSTRING = "******WAR******\n"
     RARSTRING = "******RAR******\n"
     for x in range(1,len(matriz)):
-
         if (matriz[x-1]["Continente"] in matriz[x]["Ejecutor"]):
+            if(lastindex(matriz[x-1]["Pipeline"],"WB") >= firstindex(matriz[x]["Pipeline"],"EX")):
+                while(lastindex(matriz[x-1]["Pipeline"],"WB") >= firstindex(matriz[x]["Pipeline"],"EX")):
+                    # print("AAAAAAAAAA")
+                    matriz[x]["Pipeline"].insert(firstindex(matriz[x]["Pipeline"],"EX"),"P")
             RAWSTRING +="I" + str(x-1) + "--->" +"I" + str(x) +"\n"
         if (matriz[x]["Continente"] in matriz[x-1]["Ejecutor"]):
             WARSTRING +="I"+ str(x-1) + "--->" + "I" + str(x) +"\n"
         if (matriz[x]["Continente"] == matriz[x-1]["Continente"]):
             RARSTRING += "I"+str(x-1) + "--->" + "I" +str(x) +"\n"
-        
-    print(RARSTRING)
-    print(RAWSTRING)
-    print(WARSTRING)
+    # print(RARSTRING)
+    # print(RAWSTRING)
+    # print(WARSTRING)
 
 def memory_function(linea):
     """Funcion que, dada una instruccion de acceso a memoria, devuelve los parametros en el orden estimado."""
@@ -158,4 +204,4 @@ if __name__ == "__main__":
     RWEXCEPTIONS = ""
     set_basics()
     parser(a)
-    print(RWEXCEPTIONS)
+    # print(RWEXCEPTIONS)
