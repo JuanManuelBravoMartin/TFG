@@ -2,20 +2,34 @@
 <html>
 <head>
 	<title>Universidad Carlos III de Madrid</title>
+	<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+	<script defer src="https://pyscript.net/latest/pyscript.js"></script> 
 	<link rel="stylesheet" type="text/css" href="style.css">
+	
 </head>
 <body>
+	<py-script>
+from js import document
+def print_py():
+	new_task_content = Element("Memoria")
+	print(new_task_content.value)
+	</py-script>
 	<header class="header">
 		<h1>Universidad Carlos III de Madrid</h1>
 	</header>
 	<main>
+
 		<div class="header-inputs">
-			<div><a>ACCESO A MEMORIA EN CARGA: </a><input type="text" placeholder="Input 1"></div>
-			<div><a>ACCESO A MEMORIA EN ARITH: </a><input type="text" placeholder="Input 2"></div>
-			<div><a>ACCESO A MEMORIA EN ESCRB: </a><input type="text" placeholder="Input 3"></div>
-			<div><a>FORWARDING: </a><input type="text" placeholder="Input 4"></div>
+			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN CARGA: </a><input id="Memoria" type="text" placeholder="Input 1" class="Input_Value"></div>
+			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ALU: </a><input type="text" placeholder="Input 2" class="Input_Value"></div>
+			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ESCRITURA: </a><input type="text" placeholder="Input 3" class="Input_Value"></div>
+			<div class="cabeceras"><a class="textos">FORWARDING: </a><select name="select" class="input_select"><option value="True">True</option><option value="False">False</option></select></select></div>
 		</div>
-		<input type="text" placeholder="Input 5" class="header-input5">
+		<textarea type="text" placeholder="Input 5" class="header-input5" rows="15"></textarea>
+
+		<button  class="boton" py-click="print_py()">Click Me!</button>
+
 	</main>
+
 </body>
 </html>

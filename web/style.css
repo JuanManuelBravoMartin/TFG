@@ -19,6 +19,22 @@ body {
 	/* flex-wrap: wrap;
 	flex: 4; */
 }
+.Input_Value{
+	background-color: aqua;
+}
+.cabeceras {
+
+	display: grid;
+	justify-content: center;
+	padding: 5px;
+	grid-gap: 20%;
+	text-align: center;
+	
+}
+
+.textos{
+	vertical-align: middle;
+}
 
 .header-inputs input[type="text"] {
 	/* padding: 5px;
@@ -47,6 +63,7 @@ body {
 .header-input5 {
 	flex: 1;
 	margin-right: 10px;
+	margin-top: 20px;
 	border-radius: 5px;
 	border: none;
 	font-size: 16px;
@@ -87,7 +104,15 @@ body {
 	padding: 5px;
 	max-width: 100%;
 }
+.boton{
+	margin-left: 47%;
+	margin-top: 2%;
 
+}
+
+.input_select{
+	height: 25px;
+}
 /* @media screen and (max-width: 768px) {
 	.header-inputs input[type="text"], .body-inputs input[type="text"] {
 		max-width: 100%;
