@@ -7,27 +7,31 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<py-config>
 		[[fetch]]
-		files = ["py_proyect/utilities.py" , "py_proyect/main.py","py_proyect/logica.py" , "py_proyect/splitters.py"]
+		files = ["./utilities.py" , "./main.py","./logica.py" , "./splitters.py"]
 	</py-config>
 	
 </head>
 <body>
 	<py-script>
-		from js import document
-		import py_proyect.main as main
-		def print_py():
-			new_task_content = Element("Memoria")
-			new_task_content = Element("programa")
-			programa = new_task_content.value
-			main.main(programa)
-			return
+from js import document
+import main as main
+def print_py():
+	new_task_content = Element("Memoria")
+	new_task_content = Element("programa")
+	programa = new_task_content.value
+	a = main.main(programa)
+	print(a)
+	new_task_content = Element("global")
+	content = Element("Prueba")
+	content.element.innerHTML = a
+
 	</py-script>
 	<header class="header">
 		<h1>Universidad Carlos III de Madrid</h1>
 	</header>
 	<main>
 
-		<div class="header-inputs">
+		<div id="global" class="header-inputs">
 			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN CARGA: </a><input id="Memoria" type="text" placeholder="Input 1" class="Input_Value"></div>
 			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ALU: </a><input type="text" placeholder="Input 2" class="Input_Value"></div>
 			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ESCRITURA: </a><input type="text" placeholder="Input 3" class="Input_Value"></div>
@@ -36,6 +40,7 @@
 		<textarea id = "programa" type="text" placeholder="Input 5" class="header-input5" rows="15"></textarea>
 
 		<button  class="boton" py-click="print_py()">Click Me!</button>
+		<div id="Prueba"></div>
 	</main>
 
 </body>

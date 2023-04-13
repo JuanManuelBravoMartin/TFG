@@ -113,6 +113,23 @@ body {
 .input_select{
 	height: 25px;
 }
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+  }
+  
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+#Prueba {
+	margin-top: 3%;
+	overflow: hidden;
+	overflow-x: scroll;
+
+}
 /* @media screen and (max-width: 768px) {
 	.header-inputs input[type="text"], .body-inputs input[type="text"] {
 		max-width: 100%;

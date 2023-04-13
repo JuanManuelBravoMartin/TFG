@@ -1,6 +1,6 @@
-from py_proyect.utilities import *
-from py_proyect.logica import *
-from py_proyect.splitters import *
+from utilities import *
+from logica import *
+from splitters import *
 
 
 BASIC_WORK = ["IF","ID","EX","M","WB"]
@@ -67,15 +67,14 @@ def parser (programa):
 
     checktodosproblemas(matriz)
     
-    dibujar_matriz(matriz)
-
-    return
+    html = html_matriz(matriz)
+    return html
 
 
 def main(prgrama):
     set_basics()
-    parser(prgrama)
-    return
+    
+    return parser(prgrama)
 
 if __name__ == "__main__":
     

@@ -1,4 +1,4 @@
-from py_proyect.utilities import *
+from utilities import *
 
 def checktodosproblemas(matriz):
     base = ["IF","ID","EX","M","WB"]

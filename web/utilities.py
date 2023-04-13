@@ -19,7 +19,6 @@ def firstindex(lista,palabra):
     return aparicion
 
 def dibujar_matriz(matriz):
-    
     """Funcion para mostrar la matriz."""
     constant = "                "
     total = len(matriz[-1]["Pipeline"])
@@ -47,3 +46,33 @@ def dibujar_matriz(matriz):
             constant += "\n"
     print(constant)
     return
+
+def html_matriz(matriz):
+    devolver = "<table>\n"
+    total = len(matriz[-1]["Pipeline"])
+    devolver += """<tr>\n"""
+    devolver += "<th>Instrucciones</th>\n"
+    for x in range(total):
+        ciclo = "C" + str(x+1)
+        devolver += "<th>" + ciclo + "</th>\n"
+    devolver += "</tr>\n<tr>"
+    for y in matriz:
+        if y["Accion"] == "add":
+            instruccion = y["Accion"] + " " + y["Continente"] 
+            for x in y["Ejecutor"]:
+                instruccion += " , "+ x
+            devolver += "<th>" + instruccion + "</th>\n"
+            for z in y["Pipeline"]:
+                devolver +=  "<th>" + z + "</th>\n"
+            devolver += "</tr>"
+        else:
+            instruccion = y["Accion"] + " " + y["Ejecutor"][0]
+            instruccion += " , "+ y["Continente"]
+            devolver += "<th>" + instruccion + "</th>\n"
+            for z in y["Pipeline"]:
+                devolver +=  "<th>" + z + "</th>\n"
+            devolver += "</tr>"
+    return devolver
+
+    
+
