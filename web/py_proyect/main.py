@@ -1,6 +1,6 @@
-from utilities import *
-from logica import *
-from splitters import *
+from py_proyect.utilities import *
+from py_proyect.logica import *
+from py_proyect.splitters import *
 
 
 BASIC_WORK = ["IF","ID","EX","M","WB"]
@@ -31,7 +31,7 @@ def set_basics():
         i = BASIC_READ.index("M")
         for _ in range(ACCESO_LECTURA -1):
             BASIC_READ.insert(i,"M")
-
+    return
 
 
 def parser (programa):
@@ -48,30 +48,39 @@ def parser (programa):
                 variable = BASIC_WRITE.copy()
                 for _ in range(contador):
                     variable = ["-"] + variable
-                matriz.append({"Accion": accion,"Continente": var2, "Ejecutor": [var1], "Pipeline": variable})
+                diccionario = {"Accion": accion,"Continente": var1, "Ejecutor": [var2], "Pipeline": variable}
+                matriz.append(diccionario.copy())
             elif (accion == "lw"):
                 variable = BASIC_WORK.copy()
                 for _ in range(contador):
                     variable = ["-"] + variable
-                matriz.append({"Accion": accion,"Continente": var1, "Ejecutor": [var2], "Pipeline": BASIC_READ.copy()})
+                diccionario = {"Accion": accion,"Continente": var1, "Ejecutor": [var2], "Pipeline": variable}
+                matriz.append(diccionario.copy())
         elif (linea.split(" ")[0] == "add"):
             variable = BASIC_WORK.copy()
             for _ in range(contador):
                 variable = ["-"] + variable
             accion, var1, var2, var3 = arith_function(linea)
-            matriz.append({"Accion": accion,"Continente": var1, "Ejecutor": [var2,var3], "Pipeline": variable})
+            diccionario = {"Accion": accion,"Continente": var1, "Ejecutor": [var2,var3], "Pipeline": variable}
+            matriz.append(diccionario.copy())
         contador += ACCESO_DATOS
 
     checktodosproblemas(matriz)
     
     dibujar_matriz(matriz)
 
-    
+    return
+
+
+def main(prgrama):
+    set_basics()
+    parser(prgrama)
+    return
+
 if __name__ == "__main__":
     
     a = """sw a , a(222)
 sw a , a
 add a, a, b """
-    set_basics()
-    parser(a)
-    parser(a)
+    main(a)
+    main(a)

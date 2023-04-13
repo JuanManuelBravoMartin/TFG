@@ -5,14 +5,22 @@
 	<link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
 	<script defer src="https://pyscript.net/latest/pyscript.js"></script> 
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<py-config>
+		[[fetch]]
+		files = ["py_proyect/utilities.py" , "py_proyect/main.py","py_proyect/logica.py" , "py_proyect/splitters.py"]
+	</py-config>
 	
 </head>
 <body>
 	<py-script>
-from js import document
-def print_py():
-	new_task_content = Element("Memoria")
-	print(new_task_content.value)
+		from js import document
+		import py_proyect.main as main
+		def print_py():
+			new_task_content = Element("Memoria")
+			new_task_content = Element("programa")
+			programa = new_task_content.value
+			main.main(programa)
+			return
 	</py-script>
 	<header class="header">
 		<h1>Universidad Carlos III de Madrid</h1>
@@ -23,12 +31,11 @@ def print_py():
 			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN CARGA: </a><input id="Memoria" type="text" placeholder="Input 1" class="Input_Value"></div>
 			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ALU: </a><input type="text" placeholder="Input 2" class="Input_Value"></div>
 			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ESCRITURA: </a><input type="text" placeholder="Input 3" class="Input_Value"></div>
-			<div class="cabeceras"><a class="textos">FORWARDING: </a><select name="select" class="input_select"><option value="True">True</option><option value="False">False</option></select></select></div>
+			<div class="cabeceras"><a class="textos">FORWARDING: </a><select id="Forwarding" name="select" class="input_select"><option value="True">True</option><option value="False">False</option></select></select></div>
 		</div>
-		<textarea type="text" placeholder="Input 5" class="header-input5" rows="15"></textarea>
+		<textarea id = "programa" type="text" placeholder="Input 5" class="header-input5" rows="15"></textarea>
 
 		<button  class="boton" py-click="print_py()">Click Me!</button>
-
 	</main>
 
 </body>
