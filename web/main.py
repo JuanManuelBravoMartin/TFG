@@ -3,16 +3,14 @@ from logica import *
 from splitters import *
 
 
-BASIC_WORK = ["IF","ID","EX","M","WB"]
-BASIC_READ = []
-BASIC_WRITE = []
-WB = True
-ACCESO_DATOS = 2 ###### CICLOS DE ACCESO A LA MEMORIA DE DATOS ######
+
+
+ACCESO_DATOS = 2 
 ACCESO_ESCRITURA = 5 ###### CICLOS DE ACCESO A LA ESCRITURA DE DATOS ######
 ACCESO_LECTURA = 1 ###### CICLOS DE ACCESO A LA LECTURA DE DATOS ######
 RWEXCEPTIONS = " "
 
-def set_basics():
+def set_basics(ACCESO_DATOS,BASIC_WORK,BASIC_READ,BASIC_WRITE):
     """ Combina a informacion dada con los tipos de arrays, en favor de hacer la programacion mas facil"""
     if (ACCESO_DATOS !=1):
         for _ in range(ACCESO_DATOS -1):
@@ -34,7 +32,7 @@ def set_basics():
     return
 
 
-def parser (programa):
+def parser (BASIC_WORK,BASIC_READ,BASIC_WRITE,programa):
     """Funcion que divide el programa(un string) en diccionarios, asociandolos a una de las filas de la matriz, con su tipo
     de instruccion. Una vez hecho esto, y de forma temporal, ejecuta las fucniones que detectan que las instrucciones se pisan
     entre si"""
@@ -65,21 +63,28 @@ def parser (programa):
             matriz.append(diccionario.copy())
         contador += ACCESO_DATOS
 
-    checktodosproblemas(matriz)
+    rar,raw,war=checktodosproblemas(matriz)
     
     html = html_matriz(matriz)
-    return html
+    return html,rar,raw,war
 
 
-def main(prgrama):
-    set_basics()
+def main(WBH,AD,prgrama):
+    WB = bool(WBH)
+    try:
+        ACCESO_DATOS = int(AD) ###### CICLOS DE ACCESO A LA MEMORIA DE DATOS ######
+    except:
+        ACCESO_DATOS = 1
+    BASIC_WORK = ["IF","ID","EX","M","WB"]
+    BASIC_READ = []
+    BASIC_WRITE = []
+    set_basics(ACCESO_DATOS,BASIC_WORK,BASIC_READ,BASIC_WRITE)
     
-    return parser(prgrama)
+    return parser(BASIC_WORK,BASIC_READ,BASIC_WRITE,prgrama)
 
 if __name__ == "__main__":
     
     a = """sw a , a(222)
 sw a , a
 add a, a, b """
-    main(a)
     main(a)

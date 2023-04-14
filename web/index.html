@@ -15,16 +15,36 @@
 	<py-script>
 from js import document
 import main as main
-def print_py():
-	new_task_content = Element("Memoria")
-	new_task_content = Element("programa")
-	programa = new_task_content.value
-	a = main.main(programa)
-	print(a)
-	new_task_content = Element("global")
-	content = Element("Prueba")
-	content.element.innerHTML = a
-
+def launch_execution():
+	"Elementos de configuracion del sistema"
+	Carga = Element("Carga")
+	Alu = Element("Alu")
+	Escritura = Element("Escritura")
+	Forwarding = Element("Forwarding")
+	"--------------------------------------"
+	"Obtencion del programa"
+	Extrac = Element("programa")
+	programa = Extrac.value
+	"--------------------------------------"
+	"Ejecucion de la logica del programa"
+	programa_html,rar,raw,war = main.main(Forwarding.value,Carga.value,programa)
+	"--------------------------------------"
+	"Crear y poblar tabla del programa"
+	content = Element("Programa")
+	content.element.innerHTML = programa_html
+	"--------------------------------------"
+	"Crear y poblar tabla RAR errors"
+	content = Element("RAR")
+	content.element.innerHTML = rar
+	"--------------------------------------"
+	"Crear y poblar tabla RAW errors"
+	content = Element("RAW")
+	content.element.innerHTML = raw
+	"--------------------------------------"
+	"Crear y poblar tabla WAW errors"
+	content = Element("WAW")
+	content.element.innerHTML = war
+	"--------------------------------------"
 	</py-script>
 	<header class="header">
 		<h1>Universidad Carlos III de Madrid</h1>
@@ -32,15 +52,20 @@ def print_py():
 	<main>
 
 		<div id="global" class="header-inputs">
-			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN CARGA: </a><input id="Memoria" type="text" placeholder="Input 1" class="Input_Value"></div>
-			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ALU: </a><input type="text" placeholder="Input 2" class="Input_Value"></div>
-			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ESCRITURA: </a><input type="text" placeholder="Input 3" class="Input_Value"></div>
+			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN CARGA: </a><input id="Carga" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
+			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ALU: </a><input id="Alu" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
+			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ESCRITURA: </a><input id="Escritura" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
 			<div class="cabeceras"><a class="textos">FORWARDING: </a><select id="Forwarding" name="select" class="input_select"><option value="True">True</option><option value="False">False</option></select></select></div>
 		</div>
 		<textarea id = "programa" type="text" placeholder="Input 5" class="header-input5" rows="15"></textarea>
 
-		<button  class="boton" py-click="print_py()">Click Me!</button>
-		<div id="Prueba"></div>
+		<button  class="boton" py-click="launch_execution()">Click Me!</button>
+		<div id="Programa"></div>
+		<div id = "Errores">
+			<div id="RAW" ></div>
+			<div id="RAR" ></div>
+			<div id="WAW" ></div>
+		</div>
 	</main>
 
 </body>
