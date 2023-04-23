@@ -44,19 +44,19 @@ def parser (BASIC_WORK,BASIC_READ,BASIC_WRITE,programa):
             accion, var1, var2 = memory_function(linea)
             if (accion == "sw"):
                 variable = BASIC_WRITE.copy()
-                for _ in range(contador):
+                for _ in range(contador -1):
                     variable = ["-"] + variable
                 diccionario = {"Accion": accion,"Continente": var1, "Ejecutor": [var2], "Pipeline": variable}
                 matriz.append(diccionario.copy())
             elif (accion == "lw"):
                 variable = BASIC_WORK.copy()
-                for _ in range(contador):
+                for _ in range(contador -1):
                     variable = ["-"] + variable
                 diccionario = {"Accion": accion,"Continente": var1, "Ejecutor": [var2], "Pipeline": variable}
                 matriz.append(diccionario.copy())
         elif (linea.split(" ")[0] == "add"):
             variable = BASIC_WORK.copy()
-            for _ in range(contador):
+            for _ in range(contador -1):
                 variable = ["-"] + variable
             accion, var1, var2, var3 = arith_function(linea)
             diccionario = {"Accion": accion,"Continente": var1, "Ejecutor": [var2,var3], "Pipeline": variable}
