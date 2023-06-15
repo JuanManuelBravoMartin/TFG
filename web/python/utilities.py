@@ -1,3 +1,4 @@
+INSTRUCCIONES = ["add", "sub", "mul", "div"]
 def lastindex(lista,palabra):
     """Devuelve la ultima aparicion de un objeto en una lista."""
     aparicion = 0
@@ -57,7 +58,7 @@ def html_matriz(matriz):
         devolver += "<th>" + ciclo + "</th>\n"
     devolver += "</tr>\n<tr>"
     for y in matriz:
-        if y["Accion"] == "add":
+        if y["Accion"] in INSTRUCCIONES:
             instruccion = y["Accion"] + " " + y["Continente"] 
             for x in y["Ejecutor"]:
                 instruccion += " , "+ x
@@ -65,8 +66,15 @@ def html_matriz(matriz):
             for z in y["Pipeline"]:
                 devolver +=  "<th>" + z + "</th>\n"
             devolver += "</tr>"
-        else:
-            instruccion = y["Accion"] + " " + y["Ejecutor"][0]
+        elif y["Accion"] == "lw":
+            instruccion = y["Accion"] + " " + y["Continente"]
+            instruccion += " , "+ y["Ejecutor"][0] 
+            devolver += "<th>" + instruccion + "</th>\n"
+            for z in y["Pipeline"]:
+                devolver +=  "<th>" + z + "</th>\n"
+            devolver += "</tr>"
+        elif y["Accion"] == "sw":
+            instruccion = y["Accion"] + " " + y["Ejecutor"][0]   
             instruccion += " , "+ y["Continente"]
             devolver += "<th>" + instruccion + "</th>\n"
             for z in y["Pipeline"]:

@@ -1,12 +1,13 @@
-from utilities import *
-from logica import *
-from splitters import *
+from python.utilities import *
+from python.logica import *
+from python.splitters import *
 
 
+INSTRUCCIONES = ["add", "sub", "mul", "div"]
 
 
-ACCESO_DATOS = 2 
-ACCESO_ESCRITURA = 5 ###### CICLOS DE ACCESO A LA ESCRITURA DE DATOS ######
+ACCESO_DATOS = 1 
+ACCESO_ESCRITURA = 1 ###### CICLOS DE ACCESO A LA ESCRITURA DE DATOS ######
 ACCESO_LECTURA = 1 ###### CICLOS DE ACCESO A LA LECTURA DE DATOS ######
 RWEXCEPTIONS = " "
 
@@ -46,15 +47,17 @@ def parser (BASIC_WORK,BASIC_READ,BASIC_WRITE,programa):
                 variable = BASIC_WRITE.copy()
                 for _ in range(contador -1):
                     variable = ["-"] + variable
-                diccionario = {"Accion": accion,"Continente": var1, "Ejecutor": [var2], "Pipeline": variable}
+                diccionario = {"Accion": accion,"Continente": var2, "Ejecutor": [var1], "Pipeline": variable}
                 matriz.append(diccionario.copy())
+
             elif (accion == "lw"):
                 variable = BASIC_WORK.copy()
                 for _ in range(contador -1):
                     variable = ["-"] + variable
                 diccionario = {"Accion": accion,"Continente": var1, "Ejecutor": [var2], "Pipeline": variable}
                 matriz.append(diccionario.copy())
-        elif (linea.split(" ")[0] == "add"):
+
+        elif (linea.split(" ")[0] in INSTRUCCIONES):
             variable = BASIC_WORK.copy()
             for _ in range(contador -1):
                 variable = ["-"] + variable
@@ -69,7 +72,7 @@ def parser (BASIC_WORK,BASIC_READ,BASIC_WRITE,programa):
     return html,rar,raw,war
 
 
-def main(WBH,AD,prgrama):
+def main(prgrama,WBH = 1,AD = 1):
     WB = bool(WBH)
     try:
         ACCESO_DATOS = int(AD) ###### CICLOS DE ACCESO A LA MEMORIA DE DATOS ######

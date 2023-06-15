@@ -1,14 +1,15 @@
-from utilities import *
+from python.utilities import *
 
 def checktodosproblemas(matriz):
     base = ["IF","ID","EX","M","WB"]
     RAWSTRING = "<table>\n<tr><th>RAW</th></tr>\n"
     WARSTRING = "<table>\n<tr><th>WAR</th></tr>\n"
-    RARSTRING = "<table>\n<tr><th>RAR</th></tr>\n"
+    WAWSTRING = "<table>\n<tr><th>WAW</th></tr>\n"
     for x in range(1,len(matriz)):
 
         anterior = matriz[x-1]["Pipeline"].copy()
         siguiente = matriz[x]["Pipeline"].copy()
+
 
         for palabra in base:
 
@@ -32,7 +33,7 @@ def checktodosproblemas(matriz):
 
                     if (matriz[x]["Continente"] == matriz[y]["Continente"]):
 
-                        RARSTRING += "<tr><th>I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
+                        WAWSTRING += "<tr><th>I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
 
             indice_anterior = lastindex(anterior,palabra)
             indice_siguiente = firstindex(siguiente,palabra)
@@ -46,8 +47,7 @@ def checktodosproblemas(matriz):
 
             matriz[x-1]["Pipeline"] = anterior.copy()
             matriz[x]["Pipeline"] = siguiente.copy()
-    RARSTRING += "</table>"
+    WAWSTRING += "</table>"
     RAWSTRING += "</table>"
     WARSTRING += "</table>"
-    RARSTRING,RAWSTRING,WARSTRING
-    return RARSTRING,RAWSTRING,WARSTRING
+    return WAWSTRING,RAWSTRING,WARSTRING

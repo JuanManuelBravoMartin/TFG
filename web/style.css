@@ -21,7 +21,7 @@ body {
 	flex: 4; */
 }
 .Input_Value{
-	background-color: aqua;
+	background-color: white;
 }
 .cabeceras {
 
@@ -106,8 +106,8 @@ body {
 	max-width: 100%;
 }
 .boton{
-	margin-left: 47%;
 	margin-top: 2%;
+	width: 50%;
 
 }
 
@@ -138,4 +138,21 @@ td, th {
 	grid-template-columns: auto auto auto;
 	margin-top: 3%;
 
+}
+
+#Ejemplos_botones{
+	width: 100%;
+	display: grid;
+	grid-template-columns: auto auto;
+
+}
+#Ejemplos_conjunto{
+	width: 100%;
+	display: grid;
+	grid-template-columns: auto auto;
+
+}
+.selector_ejemplos{
+	margin-top: 2%;
+	margin-right: 4%;
 }

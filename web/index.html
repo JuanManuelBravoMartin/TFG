@@ -7,14 +7,24 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<py-config>
 		[[fetch]]
-		files = ["./utilities.py" , "./main.py","./logica.py" , "./splitters.py"]
+		files = ["./python/utilities.py" , "./python/main.py","./python/logica.py" , "./python/splitters.py","ejemplos.json"]
 	</py-config>
 	
 </head>
 <body>
 	<py-script>
 from js import document
-import main as main
+import json
+import python.main as main
+with open("ejemplos.json","r") as j:
+	a = json.load(j)
+Ejemplos = Element("Ejemplos")	
+htmlfinal = ""
+for x in a:
+	reemplazado = x.replace(" ","_")
+	htmlfinal += "<option value=" +  reemplazado +  ">" +  x + "</option>"
+Ejemplos.element.innerHTML = htmlfinal
+
 def launch_execution():
 	"Elementos de configuracion del sistema"
 	Carga = Element("Carga")
@@ -27,7 +37,7 @@ def launch_execution():
 	programa = Extrac.value
 	"--------------------------------------"
 	"Ejecucion de la logica del programa"
-	programa_html,rar,raw,war = main.main(Forwarding.value,Carga.value,programa)
+	programa_html,rar,raw,war = main.main(programa,Forwarding.value,Carga.value)
 	"--------------------------------------"
 	"Crear y poblar tabla del programa"
 	content = Element("Programa")
@@ -42,9 +52,18 @@ def launch_execution():
 	content.element.innerHTML = raw
 	"--------------------------------------"
 	"Crear y poblar tabla WAW errors"
-	content = Element("WAW")
+	content = Element("WAR")
 	content.element.innerHTML = war
 	"--------------------------------------"
+	return
+def carga_ejemplos():
+	with open("ejemplos.json","r") as j:
+		a = json.load(j)
+	Forwarding = Element("Ejemplos")	
+	Extrac = Element("programa")
+	Extrac.element.value = a[ Forwarding.value.replace("_"," ") ]
+
+
 	</py-script>
 	<header class="header">
 		<h1>Universidad Carlos III de Madrid</h1>
@@ -58,13 +77,24 @@ def launch_execution():
 			<div class="cabeceras"><a class="textos">FORWARDING: </a><select id="Forwarding" name="select" class="input_select"><option value="True">True</option><option value="False">False</option></select></select></div>
 		</div>
 		<textarea id = "programa" type="text" placeholder="Input 5" class="header-input5" rows="15"></textarea>
+		
+		
+		
+		<div id = "Ejemplos_botones">
 
-		<button  class="boton" py-click="launch_execution()">Click Me!</button>
+			<button  class="boton" py-click="launch_execution()">Run code</button>
+		<div id = "Ejemplos_conjunto">
+			<select id="Ejemplos" name="select" class="selector_ejemplos"></select>
+			
+			<button  class="boton" py-click="carga_ejemplos()">Cargar ejemplos</button>
+		</div>	
+		</div>
+
 		<div id="Programa"></div>
 		<div id = "Errores">
 			<div id="RAW"></div>
+			<div id="WAR"></div>
 			<div id="RAR"></div>
-			<div id="WAW"></div>
 		</div>
 	</main>
 
