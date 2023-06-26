@@ -1,6 +1,7 @@
 from python.utilities import *
-
+INSTRUCCIONES = ["add", "sub", "mul", "div"]
 def checktodosproblemas(matriz,FW):
+
     base = ["IF","ID","EX","M","WB"]
 
     RAWSTRING = "<table>\n<tr><th>RAW</th></tr>\n"
@@ -22,13 +23,35 @@ def checktodosproblemas(matriz,FW):
 
                     iteracion = matriz[y]["Pipeline"].copy()
 
-                    if ((matriz[y]["Continente"] in matriz[x]["Ejecutor"]) and (lastindex(iteracion,"WB") >= firstindex(siguiente,"EX"))):
+                    if (FW == False):
 
-                        while(lastindex(iteracion,"WB") >= firstindex(siguiente,"EX")):
+                        if ((matriz[y]["Continente"] in matriz[x]["Ejecutor"]) and (lastindex(iteracion,"WB") >= firstindex(siguiente,"EX"))):
 
-                            siguiente.insert(firstindex(siguiente,"EX"),"-")
+                            while(lastindex(iteracion,"WB") >= firstindex(siguiente,"EX")):
 
-                        RAWSTRING += "<tr><th>I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
+                                siguiente.insert(firstindex(siguiente,"EX"),"-")
+
+                            RAWSTRING += "<tr><th>I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
+                    elif (FW == True):
+
+                        if(matriz[y]["Accion"] in INSTRUCCIONES):
+                            
+                            if ((matriz[y]["Continente"] in matriz[x]["Ejecutor"]) and (lastindex(iteracion,"EX") >= firstindex(siguiente,"EX"))):
+
+                                while(lastindex(iteracion,"EX") >= firstindex(siguiente,"EX")):
+
+                                    siguiente.insert(firstindex(siguiente,"EX"),"-")
+
+                                RAWSTRING += "<tr><th>I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
+                        else:
+                            if ((matriz[y]["Continente"] in matriz[x]["Ejecutor"]) and (lastindex(iteracion,"M") >= firstindex(siguiente,"EX"))):
+
+                                while(lastindex(iteracion,"M") >= firstindex(siguiente,"EX")):
+
+                                    siguiente.insert(firstindex(siguiente,"EX"),"-")
+
+                                RAWSTRING += "<tr><th>I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
+
 
                     if (matriz[x]["Continente"] in matriz[y]["Ejecutor"]):
 

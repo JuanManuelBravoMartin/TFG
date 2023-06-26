@@ -39,13 +39,10 @@ def launch_execution():
 	"Obtencion del programa"
 	Extrac = Element("programa")
 	programa = Extrac.value
-	FW = Forwarding.value
+	FW = int(Forwarding.value)
 	"--------------------------------------"
 	"Ejecucion de la logica del programa"
-	print(FW)
-	a = int(FW)
-	print(a)
-	programa_html,rar,raw,war = main.main(programa,a,Carga.value)
+	programa_html,rar,raw,war = main.main(programa,FW,Carga.value,Escritura.value,Alu.value)
 	"--------------------------------------"
 	"Crear y poblar tabla del programa"
 	content = Element("Programa")
@@ -75,14 +72,15 @@ def carga_ejemplos():
 	</py-script>
 	<header class="header">
 		<h1>Universidad Carlos III de Madrid</h1>
+		<h4 id="Autor"">Juan Manuel Bravo Martin</h4>
 	</header>
 	<main>
 
 		<div id="global" class="header-inputs">
 			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN CARGA: </a><input id="Carga" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
-			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ALU: </a><input id="Alu" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
+			<div class="cabeceras"><a class="textos">EJECUCIONES EN ALU: </a><input id="Alu" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
 			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ESCRITURA: </a><input id="Escritura" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
-			<div class="cabeceras"><a class="textos">FORWARDING: </a><select id="Forwarding" name="select" class="input_select"><option value="1">True</option><option value="2">False</option></select></select></div>
+			<div class="cabeceras"><a class="textos">FORWARDING: </a><select id="Forwarding" name="select" class="input_select"><option value="1">True</option><option value="0">False</option></select></select></div>
 		</div>
 		<textarea id = "programa" type="text" placeholder="Input 5" class="header-input5" rows="15"></textarea>
 		

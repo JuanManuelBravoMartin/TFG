@@ -6,18 +6,18 @@ from python.splitters import *
 INSTRUCCIONES = ["add", "sub", "mul", "div"]
 
 
-ACCESO_DATOS = 1 
-ACCESO_ESCRITURA = 1 ###### CICLOS DE ACCESO A LA ESCRITURA DE DATOS ######
+# ACCESO_ESCRITURA = 3 ###### CICLOS DE ACCESO A LA ESCRITURA DE DATOS ######
 ACCESO_LECTURA = 1 ###### CICLOS DE ACCESO A LA LECTURA DE DATOS ######
 RWEXCEPTIONS = " "
 
-def set_basics(ACCESO_DATOS,BASIC_WORK,BASIC_READ,BASIC_WRITE):
+def set_basics(ACCESO_ALU,ACCESO_ESCRITURA,ACCESO_DATOS,BASIC_WORK,BASIC_AR,BASIC_WRITE):
+
     """ Combina a informacion dada con los tipos de arrays, en favor de hacer la programacion mas facil"""
     if (ACCESO_DATOS !=1):
         for _ in range(ACCESO_DATOS -1):
             BASIC_WORK.insert(0,"IF")
     for x in BASIC_WORK:
-        BASIC_READ.append(x)
+        BASIC_AR.append(x)
         BASIC_WRITE.append(x)
 
     if (ACCESO_ESCRITURA != 1):
@@ -25,15 +25,15 @@ def set_basics(ACCESO_DATOS,BASIC_WORK,BASIC_READ,BASIC_WRITE):
         for _ in range(ACCESO_ESCRITURA -1):
             BASIC_WRITE.insert(i,"M")
 
-    if (ACCESO_LECTURA != 1):
+    if (ACCESO_ALU != 1):
 
-        i = BASIC_READ.index("M")
-        for _ in range(ACCESO_LECTURA -1):
-            BASIC_READ.insert(i,"M")
+        i = BASIC_AR.index("EX")
+        for _ in range(ACCESO_ALU -1):
+            BASIC_AR.insert(i,"EX")
     return
 
 
-def parser (BASIC_WORK,BASIC_READ,BASIC_WRITE,FW,programa):
+def parser (ACCESO_DATOS,BASIC_WORK,BASIC_AR,BASIC_WRITE,FW,programa):
     """Funcion que divide el programa(un string) en diccionarios, asociandolos a una de las filas de la matriz, con su tipo
     de instruccion. Una vez hecho esto, y de forma temporal, ejecuta las fucniones que detectan que las instrucciones se pisan
     entre si"""
@@ -60,32 +60,45 @@ def parser (BASIC_WORK,BASIC_READ,BASIC_WRITE,FW,programa):
                 matriz.append(diccionario.copy())
 
         elif (linea.split(" ")[0] in INSTRUCCIONES):
-            variable = BASIC_WORK.copy()
+            variable = BASIC_AR.copy()
             for _ in range(contador - 1):
                 variable = ["-"] + variable
             accion, var1, var2, var3 = arith_function(linea)
             diccionario = {"Accion": accion,"Continente": var1, "Ejecutor": [var2,var3], "Pipeline": variable}
             matriz.append(diccionario.copy())
+        else:
+            raise Exception("Por favor, introduce un codigo ensamblador valido")
         contador += ACCESO_DATOS
 
-    rar,raw,war=checktodosproblemas(matriz,True)
+    rar,raw,war=checktodosproblemas(matriz,FW)
     
     html = html_matriz(matriz)
     return html,rar,raw,war
 
 
-def main(programa,FW,AD = 1):
+def main(programa,FW,AD = 1,AS = 1,ALU=1):
+
     try:
         ACCESO_DATOS = int(AD) ###### CICLOS DE ACCESO A LA MEMORIA DE DATOS ######
     except:
         ACCESO_DATOS = 1
+
+    try:
+        ACCESO_ESCRITURA = int(AS) ###### CICLOS DE ACCESO A LA MEMORIA DE DATOS ######
+    except:
+        ACCESO_ESCRITURA = 1
+
+    try:
+        ACCESO_ALU = int(ALU) ###### CICLOS DE ACCESO A LA MEMORIA DE DATOS ######
+    except:
+        ACCESO_ALU = 1
     BASIC_WORK = ["IF","ID","EX","M","WB"]
-    BASIC_READ = []
+    BASIC_AR = []
     BASIC_WRITE = []
     
-    set_basics(ACCESO_DATOS,BASIC_WORK,BASIC_READ,BASIC_WRITE)
+    set_basics(ACCESO_ALU,ACCESO_ESCRITURA,ACCESO_DATOS,BASIC_WORK,BASIC_AR,BASIC_WRITE)
     
-    return parser(BASIC_WORK,BASIC_READ,BASIC_WRITE,FW,programa)
+    return parser(ACCESO_DATOS,BASIC_WORK,BASIC_AR,BASIC_WRITE,FW,programa)
 
 if __name__ == "__main__":
     
