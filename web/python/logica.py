@@ -1,13 +1,16 @@
 from python.utilities import *
 
-def checktodosproblemas(matriz):
+def checktodosproblemas(matriz,FW):
     base = ["IF","ID","EX","M","WB"]
+
     RAWSTRING = "<table>\n<tr><th>RAW</th></tr>\n"
     WARSTRING = "<table>\n<tr><th>WAR</th></tr>\n"
     WAWSTRING = "<table>\n<tr><th>WAW</th></tr>\n"
+
     for x in range(1,len(matriz)):
 
         anterior = matriz[x-1]["Pipeline"].copy()
+
         siguiente = matriz[x]["Pipeline"].copy()
 
 
@@ -36,12 +39,14 @@ def checktodosproblemas(matriz):
                         WAWSTRING += "<tr><th>I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
 
             indice_anterior = lastindex(anterior,palabra)
+
             indice_siguiente = firstindex(siguiente,palabra)
+
             dif = indice_anterior - indice_siguiente
 
             if dif >= 0:
-
-                for _ in range(dif+1):
+                siguiente.insert(indice_siguiente,"-")
+                for _ in range(dif):
 
                     siguiente.insert(indice_siguiente,"-")
 

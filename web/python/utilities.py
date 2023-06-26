@@ -5,7 +5,6 @@ def lastindex(lista,palabra):
     for x in range(len(lista)):
         if lista[x] == palabra:
             aparicion = x
-    # print(aparicion)
     return aparicion
 
 def firstindex(lista,palabra):

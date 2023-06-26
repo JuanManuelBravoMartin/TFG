@@ -16,10 +16,14 @@
 from js import document
 import json
 import python.main as main
+
 with open("ejemplos.json","r") as j:
 	a = json.load(j)
+
 Ejemplos = Element("Ejemplos")	
+
 htmlfinal = ""
+
 for x in a:
 	reemplazado = x.replace(" ","_")
 	htmlfinal += "<option value=" +  reemplazado +  ">" +  x + "</option>"
@@ -35,9 +39,13 @@ def launch_execution():
 	"Obtencion del programa"
 	Extrac = Element("programa")
 	programa = Extrac.value
+	FW = Forwarding.value
 	"--------------------------------------"
 	"Ejecucion de la logica del programa"
-	programa_html,rar,raw,war = main.main(programa,Forwarding.value,Carga.value)
+	print(FW)
+	a = int(FW)
+	print(a)
+	programa_html,rar,raw,war = main.main(programa,a,Carga.value)
 	"--------------------------------------"
 	"Crear y poblar tabla del programa"
 	content = Element("Programa")
@@ -74,7 +82,7 @@ def carga_ejemplos():
 			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN CARGA: </a><input id="Carga" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
 			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ALU: </a><input id="Alu" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
 			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ESCRITURA: </a><input id="Escritura" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
-			<div class="cabeceras"><a class="textos">FORWARDING: </a><select id="Forwarding" name="select" class="input_select"><option value="True">True</option><option value="False">False</option></select></select></div>
+			<div class="cabeceras"><a class="textos">FORWARDING: </a><select id="Forwarding" name="select" class="input_select"><option value="1">True</option><option value="2">False</option></select></select></div>
 		</div>
 		<textarea id = "programa" type="text" placeholder="Input 5" class="header-input5" rows="15"></textarea>
 		
