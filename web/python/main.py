@@ -87,7 +87,7 @@ def main(programa,FW,AD = 1,AS = 1,ALU=1):
         ACCESO_ESCRITURA = 1
 
     try:
-        ACCESO_ALU = int(ALU) ###### CICLOS DE OPERACIONES ALU ######
+        ACCESO_ALU = int(ALU) ######  CICLOS DE OPERACIONES ALU ######
     except:
         ACCESO_ALU = 1
     BASIC_WORK = ["IF","ID","EX","M","WB"]
