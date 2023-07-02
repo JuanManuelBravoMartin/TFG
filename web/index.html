@@ -79,7 +79,7 @@ def carga_ejemplos():
 		<div id="global" class="header-inputs">
 			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN CARGA: </a><input id="Carga" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
 			<div class="cabeceras"><a class="textos">EJECUCIONES EN ALU: </a><input id="Alu" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
-			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ESCRITURA: </a><input id="Escritura" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
+			<div class="cabeceras"><a class="textos">ACCESO A MEMORIA EN ESCRITURA/LECTURA: </a><input id="Escritura" type="text" placeholder="Por defecto 1" class="Input_Value"></div>
 			<div class="cabeceras"><a class="textos">FORWARDING: </a><select id="Forwarding" name="select" class="input_select"><option value="1">True</option><option value="0">False</option></select></select></div>
 		</div>
 		<textarea id = "programa" type="text" placeholder="Input 5" class="header-input5" rows="15"></textarea>
@@ -88,7 +88,7 @@ def carga_ejemplos():
 		
 		<div id = "Ejemplos_botones">
 
-			<button  class="boton" py-click="launch_execution()">Run code</button>
+			<button  class="boton" py-click="launch_execution()">Ejecutar codigo</button>
 		<div id = "Ejemplos_conjunto">
 			<select id="Ejemplos" name="select" class="selector_ejemplos"></select>
 			

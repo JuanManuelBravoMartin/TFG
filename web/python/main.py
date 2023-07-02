@@ -3,12 +3,8 @@ from python.logica import *
 from python.splitters import *
 
 
-INSTRUCCIONES = ["add", "sub", "mul", "div"]
+INSTRUCCIONES = ["add","addi", "sub", "mul", "div"]
 
-
-# ACCESO_ESCRITURA = 3 ###### CICLOS DE ACCESO A LA ESCRITURA DE DATOS ######
-ACCESO_LECTURA = 1 ###### CICLOS DE ACCESO A LA LECTURA DE DATOS ######
-RWEXCEPTIONS = " "
 
 def set_basics(ACCESO_ALU,ACCESO_ESCRITURA,ACCESO_DATOS,BASIC_WORK,BASIC_AR,BASIC_WRITE):
 
@@ -16,7 +12,9 @@ def set_basics(ACCESO_ALU,ACCESO_ESCRITURA,ACCESO_DATOS,BASIC_WORK,BASIC_AR,BASI
     if (ACCESO_DATOS !=1):
         for _ in range(ACCESO_DATOS -1):
             BASIC_WORK.insert(0,"IF")
+
     for x in BASIC_WORK:
+
         BASIC_AR.append(x)
         BASIC_WRITE.append(x)
 
@@ -53,7 +51,7 @@ def parser (ACCESO_DATOS,BASIC_WORK,BASIC_AR,BASIC_WRITE,FW,programa):
                 matriz.append(diccionario.copy())
 
             elif (accion == "lw"):
-                variable = BASIC_WORK.copy()
+                variable = BASIC_WRITE.copy()
                 for _ in range(contador -1):
                     variable = ["-"] + variable
                 diccionario = {"Accion": accion,"Continente": var1, "Ejecutor": [var2], "Pipeline": variable}
@@ -89,7 +87,7 @@ def main(programa,FW,AD = 1,AS = 1,ALU=1):
         ACCESO_ESCRITURA = 1
 
     try:
-        ACCESO_ALU = int(ALU) ###### CICLOS DE ACCESO A LA MEMORIA DE DATOS ######
+        ACCESO_ALU = int(ALU) ###### CICLOS DE OPERACIONES ALU ######
     except:
         ACCESO_ALU = 1
     BASIC_WORK = ["IF","ID","EX","M","WB"]

@@ -1,5 +1,5 @@
 from python.utilities import *
-INSTRUCCIONES = ["add", "sub", "mul", "div"]
+INSTRUCCIONES = ["add","addi", "sub", "mul", "div"]
 def checktodosproblemas(matriz,FW):
 
     base = ["IF","ID","EX","M","WB"]
@@ -25,53 +25,57 @@ def checktodosproblemas(matriz,FW):
 
                     if (FW == False):
 
-                        if ((matriz[y]["Continente"] in matriz[x]["Ejecutor"]) and (lastindex(iteracion,"WB") >= firstindex(siguiente,"EX"))):
+                        if ((matriz[y]["Continente"] in matriz[x]["Ejecutor"])):
 
                             while(lastindex(iteracion,"WB") >= firstindex(siguiente,"EX")):
 
                                 siguiente.insert(firstindex(siguiente,"EX"),"-")
 
-                            RAWSTRING += "<tr><th>I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
+                            RAWSTRING += "<tr><th>"+  matriz[y]["Continente"] + ":" +  "I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
                     elif (FW == True):
 
                         if(matriz[y]["Accion"] in INSTRUCCIONES):
                             
-                            if ((matriz[y]["Continente"] in matriz[x]["Ejecutor"]) and (lastindex(iteracion,"EX") >= firstindex(siguiente,"EX"))):
+                            if ((matriz[y]["Continente"] in matriz[x]["Ejecutor"])):
 
                                 while(lastindex(iteracion,"EX") >= firstindex(siguiente,"EX")):
 
                                     siguiente.insert(firstindex(siguiente,"EX"),"-")
 
-                                RAWSTRING += "<tr><th>I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
+                                RAWSTRING += "<tr><th>"+  matriz[y]["Continente"] + ":" + "I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
                         else:
-                            if ((matriz[y]["Continente"] in matriz[x]["Ejecutor"]) and (lastindex(iteracion,"M") >= firstindex(siguiente,"EX"))):
+                            if ((matriz[y]["Continente"] in matriz[x]["Ejecutor"])):
 
                                 while(lastindex(iteracion,"M") >= firstindex(siguiente,"EX")):
 
                                     siguiente.insert(firstindex(siguiente,"EX"),"-")
 
-                                RAWSTRING += "<tr><th>I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
+                                RAWSTRING += "<tr><th>"+  matriz[y]["Continente"] + ":" + "I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
 
 
                     if (matriz[x]["Continente"] in matriz[y]["Ejecutor"]):
 
-                        WARSTRING +="<tr><th>I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
+                        WARSTRING +="<tr><th>"+  matriz[x]["Continente"] + ":" + "I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
 
                     if (matriz[x]["Continente"] == matriz[y]["Continente"]):
 
-                        WAWSTRING += "<tr><th>I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
+                        WAWSTRING += "<tr><th>"+  matriz[x]["Continente"] + ":" + "I" + str(y) + "--->" + "I" + str(x) +"</th></tr>\n"
 
-            indice_anterior = lastindex(anterior,palabra)
+            if (palabra != "WB"):
 
-            indice_siguiente = firstindex(siguiente,palabra)
+                palabra_siguiente = base[base.index(palabra)+1]
+                
+                indice_anterior = firstindex(anterior,palabra_siguiente)
 
-            dif = indice_anterior - indice_siguiente
+                indice_siguiente = firstindex(siguiente,palabra)
 
-            if dif >= 0:
-                siguiente.insert(indice_siguiente,"-")
-                for _ in range(dif):
+                dif = indice_anterior - indice_siguiente
 
-                    siguiente.insert(indice_siguiente,"-")
+                if dif >= 0:
+
+                    for _ in range(dif):
+
+                        siguiente.insert(indice_siguiente,"-")
 
             matriz[x-1]["Pipeline"] = anterior.copy()
             matriz[x]["Pipeline"] = siguiente.copy()

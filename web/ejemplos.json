@@ -1,6 +1,6 @@
 {
-    "Prueba 1": "lw R1 , R7 \nadd R2 , R1 , R5 \nsub R3 , R1 , R4",
-    "Prueba 2":"lw F6 , 34(R2) \nlw F2 , 45(R3) \nmul F0 , F2 , F4 \nsub F8 , F10 , F2 \ndiv F10 , F0 , F6 \nadd F6 , F8 , F2 ",
-    "Prueba 3": "lw F6 , 0(R2) \nmul F0 , F2 , F4 \nadd F6 , F8 , F2 \nsw F2, 0(R2)"
-
+    "Ejemplo 1": "lw R1 , R7 \nadd R2 , R1 , R5 \nsub R3 , R1 , R4",
+    "Ejemplo 2":"lw F6 , 34(R2) \nlw F2 , 45(R3) \nmul F0 , F2 , F4 \nsub F8 , F10 , F2 \ndiv F10 , F0 , F6 \nadd F6 , F8 , F2 ",
+    "Ejemplo 3": "lw F6 , 0(R2) \nmul F0 , F2 , F4 \nadd F6 , F8 , F2 \nsw F2, 0(R2)",
+    "Ejemplo 4": "lw $t1, 0($t0) \nlw $t2, 1000($t0) \nadd $t2, $t1, $t2 \nlw $t1, 5000($t0) \nadd $t2, $t1, $t2 \nsw $t2, 3000($t0)"
 }

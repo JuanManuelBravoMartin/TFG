@@ -1,5 +1,0 @@
-https://towardsdatascience.com/create-an-interactive-web-app-with-pyscript-and-pandas-3918ad2dada1
-https://www.jhanley.com/blog/pyscript-javascript-and-python-interoperability/
-https://blog.logrocket.com/pyscript-run-python-browser/
-https://www.deepl.com/translator
-https://www.uc3m.es/biblioteca/citas-bibliograficas
